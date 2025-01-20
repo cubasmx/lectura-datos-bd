@@ -1,11 +1,5 @@
 <?php
 $nombre = $_GET['nombre'] ?? 'Invitado';
-session_start(); // Iniciar la sesión
-
-// Verificar si el usuario está logueado
-if (!isset($_SESSION['usuario'])) {
-    header('Location: index.php'); // Si no está logueado, redirige a index.php
-    exit();
 ?>
 
 <!DOCTYPE html>
