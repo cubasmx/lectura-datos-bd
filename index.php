@@ -20,10 +20,13 @@ if ($conn->connect_error) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'] ?? '';
     $correo = $_POST['correo'] ?? '';
+    $contraseña = $_POST['contraseña'] ?? '';
 
-    if ($nombre && $correo) {
+    if ($nombre && $correo && $contraseña) {
+        $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT);
         $stmt = $conn->prepare('INSERT INTO usuarios (nombre, correo) VALUES (?, ?)');
-        $stmt->bind_param('ss', $nombre, $correo);
+        $stmt = $conn->prepare('INSERT INTO usuarios (nombre, correo, contraseña) VALUES (?, ?, ?)');
+        $stmt->bind_param('sss', $nombre, $correo, $contraseña_hash);
         $stmt->execute();
         $stmt->close();
     }
@@ -56,8 +59,12 @@ $result = $conn->query('SELECT * FROM usuarios');
         <label for="correo">Correo:</label>
         <input type="email" id="correo" name="correo" required>
         <br>
-        <button type="submit">Agregar</button>
+        <label for="contraseña">Contraseña:</label>
+        <input type="password" id="contraseña" name="contraseña" required>
+        <br>
+        <button type="submit">Registrar</button>
     </form>
+
 </body>
 </html>
 
