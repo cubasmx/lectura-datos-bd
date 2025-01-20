@@ -63,6 +63,9 @@ $result = $conn->query('SELECT * FROM usuarios');
         <input type="password" id="contraseña" name="contraseña" required>
         <br>
         <button type="submit">Registrar</button>
+        <a href="login.php">
+        <button type="button">Ir a Login</button>
+        </a>
     </form>
 
 </body>
